@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Расписание</title>
+    </head>
+    <body>
+        <table>
+            <thead><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></thead>
+            {{range . }}
+            <tr>
+                <td>{{.NOTD}}</td>
+                <td>{{.NMPP}}</td>
+                <td>{{.RNAME}}</td>
+                <td>{{.EVEN_DAY.String}}</td>
+                <td>{{.NOEVEN_DAY.String}}</td>
+                <td>{{.SATURDAY.String}}</td>
+                <td>{{.SUNDAY.String}</td>
+            </tr>
+            {{end}}
+        </table>
+    </body>
+</html>
