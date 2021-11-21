@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"time"
 	"web5/internal/handlers"
 	"web5/internal/schedule/doctor"
 
@@ -31,12 +32,14 @@ func main() {
 
 	router := mux.NewRouter()
 	v1 := router.PathPrefix("/v1").Subrouter()
-
 	v1.Handle("/search", handlers.NewIndexHandler(schedule.NewManager(doctor.NewStore(db)), cfg.TemplateINDEX)).Methods("GET")
-	log.Println("Запуск сервера на :8080")
-	err := http.ListenAndServe(":8080", v1)
-	if err != nil {
-		log.Printf("server close error: %v ", err)
+	srv := &http.Server{
+		Handler: router,
+		Addr:    "127.0.0.1:8000",
+		// Таймауты сервера! (рекомандация задавать из мануалов gorilla/mux
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
 	}
+	log.Fatal(srv.ListenAndServe())
 
 }
