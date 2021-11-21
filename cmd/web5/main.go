@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 	"web5/internal/handlers"
@@ -35,7 +36,7 @@ func main() {
 	v1.Handle("/search", handlers.NewIndexHandler(schedule.NewManager(doctor.NewStore(db)), cfg.TemplateINDEX)).Methods("GET")
 	srv := &http.Server{
 		Handler: router,
-		Addr:    "127.0.0.1:8000",
+		Addr:    fmt.Sprintf("0.0.0.0:%v", cfg.APPPort),
 		// Таймауты сервера! (рекомандация задавать из мануалов gorilla/mux
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,

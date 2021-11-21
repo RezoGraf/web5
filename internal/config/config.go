@@ -4,8 +4,9 @@ import "github.com/kelseyhightower/envconfig"
 
 // Config представляет конфигурацию сервиса
 type Config struct {
-	DatabaseDSN   string `envconfig:"DATABASEDSN"`
-	TemplateINDEX string `envconfig:"TEMPLATEINDEX"`
+	APPPort       int64 `envconfig:"APP_PORT" required:"true"`
+	DatabaseDSN   string `envconfig:"DATABASE_DSN" required:"true"`
+	TemplateINDEX string `envconfig:"TEMPLATE_INDEX" required:"true"`
 }
 
 // InitConfig возвращает конфиг
